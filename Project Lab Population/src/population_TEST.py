@@ -24,17 +24,17 @@ def show_enumerated(colection):
 ################################################################
 def test_read_populations():
     print("Reading " , len (POPULATIONS), "data from world population")
-    show_enumerated(POPULATIONS)    
-        
+    #show_enumerated(POPULATIONS[:10])
         
 def test_calculate_countries():        
     countries = calculate_countries(POPULATIONS)
     print("Countries")
     print("Read " , len (countries), "different countries")
+    countries.sort()
     show_enumerated(countries)
   
 def test_filter_by_country():        
-    population_es = filter_by_country(POPULATIONS, "Spain")
+    population_es = filter_by_country(POPULATIONS, "ESP")
     print("Population Spain")
     print("Read " , len (population_es), "data of population from Spain")
     show_enumerated(population_es)
@@ -59,6 +59,6 @@ POPULATIONS = read_populations('../data/population.csv')
 test_read_populations()
 #test_calculate_countries()
 #test_filter_by_country()
-#test_filter_by_countries_and_year()
+test_filter_by_countries_and_year()
 #test_show_population_evolution()
 #test_show_comparative_countries_year()

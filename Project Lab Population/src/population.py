@@ -50,8 +50,10 @@ FUNCTIONS THAT ARE PART OF THE EXERCISE:
 
 '''
 import csv
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from collections import namedtuple
+from cgitb import reset
+from _datetime import date
 
 Registro = namedtuple('Registro', 'nombre, codigo, año, censo')
 ########################################################################################
@@ -96,11 +98,17 @@ def calculate_countries(populations):
     for which there is at least one population data.
     The output list will not contain repeating elements.
     '''
-    
+    countriesSet = set()
+    for name,code,year,census in populations:
+        if census > 0:
+            countriesSet.add(name)
+
+    countriesList = list(countriesSet)
+    return countriesList
 ##############################################################################################
 
 ############################################################################################## 
-def filter_by_country (towns, country):
+def filter_by_country (populations, country):
     '''Select the tuples corresponding to a specific country
     
     INPUT:
@@ -115,7 +123,12 @@ def filter_by_country (towns, country):
     either giving your full name, or giving your code.
     '''
     
-        
+    countryPopulationSet = []
+    for name,code,year,census in populations:
+        if name == country or code == country:
+            countryPopulationSet.append((year,census))
+    
+    return countryPopulationSet
 ##############################################################################################
 
 ############################################################################################## 
@@ -135,6 +148,13 @@ def filter_by_countries_and_year (populations, year, countries):
     corresponding to the year given as a parameter and of the countries
     included in the countries collection
     '''
+   selectedData = []
+   for country in countries:
+        for name,code,date,census in populations:
+            if name == country:
+                if date == year:
+                    selectedData.append((country,census))
+   return selectedData
     
 ##############################################################################################
 
@@ -196,4 +216,4 @@ def show_comparative_countries_year (populations, year, countries):
     # We calculate the list of populations of the given year for the countries in the list
    
     
-###############################################################################################
+##############################################################################################
